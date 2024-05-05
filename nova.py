@@ -30,11 +30,17 @@ def gpt_query(prompt: str, content: str) -> str:
 
 @mod.action_class
 class UserActions:
-    def gpt_answer_question(text_to_process: str) -> str:
+    def command_match(text_to_process: str) -> str:
         """Answer an arbitrary question"""
+        commands = ['focus code', 'focus chrome', 'focus notes', 'help active']
         prompt = """
-        The input is natural language the user has spoken, that should line up to a command for a computer voice control software. Respond with the most likely command. Here is a list of the possible commands: focus code, focus chrome, focus safari, focus notes, help active
-        """
+        The input is natural language the user has spoken, 
+        that should line up to a command for a 
+        computer voice control software. 
+        Respond with the most likely command. 
+        Here is a list of the possible commands: {}
+        """.format(', '.join(commands))
+        print(prompt)
         return gpt_query(prompt, text_to_process)
     def nova_show(text: str):
         """Shows nova window"""
