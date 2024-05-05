@@ -27,7 +27,16 @@ mod.setting(
 mod.setting(
     "nova_model_system_prompt",
     type=str,
-    default="You are an assistant helping an office worker to be more productive. Output just the response to the request and no additional content. Do not generate any markdown formatting such as backticks for programming languages unless it is explicitly requested.",
+    default='''You are being integraded into a voice command software. Your task is to take 
+    the user's raw speach to text strings and compare them to available commands to find the
+    most likely command that the user was asking for. The possible commands are formatted as:
+    spoken form: action,. There may be multiple spoken forms seperated by |, and the action may
+    include several written forms or python commands. Also, the spoken form may include open ended 
+    tags where user dication would be inserted which could look like this: nova <user.text>$:
+    result = user.command_match(text)
+    user.nova_hide()
+    user.nova_show(result), . Your task is to simply return the most likely command (just the spoken form). If it seems
+    like there may be several likely options, you can return several options, seperated by ', or' ''',
     desc="The default system prompt that informs the way the model should behave at a high level",
 )
 
