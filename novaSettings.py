@@ -35,7 +35,9 @@ mod.setting(
     tags where user dication would be inserted which could look like this: nova <user.text>$:
     result = user.command_match(text)
     user.nova_hide()
-    user.nova_show(result), . Your task is to simply return the most likely command (just the spoken form). If it seems
+    user.nova_show(result), . If there is an open ended tag, make sure to put whatever recommened text for the user to say in <>. 
+    Also note that there are sometimes comments noted with # that may provide aditional context for the block of commands below them.
+    Your task is to simply return the most likely command (just the spoken form of the command only, nothing else). If it seems
     like there may be several likely options, you can return several options, seperated by ', or' ''',
     desc="The default system prompt that informs the way the model should behave at a high level",
 )

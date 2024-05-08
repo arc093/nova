@@ -3,6 +3,7 @@ import os
 import platform
 import re
 from typing import Optional, Tuple
+import csv
 
 from talon import actions, app, clip, settings
 
@@ -35,7 +36,7 @@ def generate_payload(
     """Generate the headers and data for the OpenAI API GPT request.
     Does not return the URL given the fact not all openai-compatible endpoints support new features like tools
     """
-    notify("GPT Task Started")
+    #notify("GPT Task Started")
 
     TOKEN = get_token()
 
@@ -84,3 +85,15 @@ def remove_wrapper(text: str):
         regex = r'[^"]+"([^"]+)"'
     match = re.search(regex, text)
     return match.group(1) if match else text
+
+def log_to_csv(textToProcess: str, response: str):
+    csv_file_path = "api_requests_log.csv"
+    is_new_file = not os.path.exists(csv_file_path)
+    with open(csv_file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        if is_new_file:
+            writer.writerow(["User Text", "GPT Response"])
+        writer.writerow([textToProcess, response])
+
+log_to_csv('hi','123')
+notify(os.getcwd())

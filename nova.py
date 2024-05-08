@@ -7,7 +7,7 @@ import requests
 from talon import Module, actions, clip, imgui, registry, settings
 
 
-from .novaHelpers import generate_payload, notify, remove_wrapper
+from .novaHelpers import generate_payload, notify, log_to_csv
 
 mod = Module()
 
@@ -28,11 +28,14 @@ def gpt_query(prompt: str, content: str) -> str:
             raise Exception(response.json())
 
 
+
 @mod.action_class
 class UserActions:
     def command_match(text_to_process: str) -> str:
         """Answer an arbitrary question"""
-        commands = '''help alphabet: user.help_list("user.letter"),
+        commands = '''
+#help gui windows that help user find commands        
+help alphabet: user.help_list("user.letter"),
 help symbols: user.help_list("user.symbol_key"),
 help numbers: user.help_list("user.number_key"),
 help punctuation: user.help_list("user.punctuation"),
@@ -237,11 +240,13 @@ file save: edit.save(),
 file save all: edit.save_all(),
 '''
         prompt = """
-        Respond with the most likely command. 
+        Respond with the most likely command, no other text. 
         Here is a list of the possible commands: {}
         """.format(commands)
-        print(prompt)
-        return gpt_query(prompt, text_to_process)
+        text_to_process = 'how do i ' + text_to_process
+        response = gpt_query(prompt, text_to_process)
+        log_to_csv(text_to_process, response)
+        return response
     def nova_show(text: str):
         """Shows nova window"""
         global model_output
@@ -261,4 +266,4 @@ def gui(gui: imgui.GUI):
 
     gui.spacer()
     if gui.button("nova close"):
-        actions.user.ai_window_hide()
+        actions.user.nova_hide()
