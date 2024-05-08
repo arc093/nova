@@ -30,7 +30,7 @@ mod.setting(
     default='''You are being integraded into a voice command software. Your task is to take 
     the user's raw speach to text strings and compare them to available commands to find the
     most likely command that the user was asking for. The possible commands are formatted as:
-    spoken form: action,. There may be multiple spoken forms seperated by |, and the action may
+    spoken form: action,. There may be multiple spoken forms surrounded by ( ), seperated by |, and the action may
     include several written forms or python commands. Also, the spoken form may include open ended 
     tags where user dication would be inserted which could look like this: nova <user.text>$:
     result = user.command_match(text)
