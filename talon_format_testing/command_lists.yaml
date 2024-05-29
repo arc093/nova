@@ -1,0 +1,15 @@
+test_1: 
+    talon_paths: 
+        - /user/talon_nova/talon_format_testing/vscode_test.talon
+        - /user/talon_nova/talon_format_testing/weee.talon
+    test_commands: 
+        window reload: 
+            - reload 
+            - reload this window
+            - refresh the window 
+            - update what's on the window
+        window close:
+            - close this window
+            - close
+            - exit out of this window
+            - exit

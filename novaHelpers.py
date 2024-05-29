@@ -29,6 +29,18 @@ def get_token() -> str:
         notify(message)
         raise Exception(message)
 
+def remove_wrapper(text: str):
+    """Remove the string wrapper from the str representation of a command"""
+    # different command wrapper for Linux.
+    if platform.system() == "Linux":
+        regex = r"^.*?'(.*?)'.*?$"
+    else:
+        # TODO condense these regexes. Hard to test between platforms
+        # since the wrapper is slightly different
+        regex = r'[^"]+"([^"]+)"'
+    match = re.search(regex, text)
+    return match.group(1) if match else text
+
 
 def generate_payload(
     prompt: str, content: str, tools: Optional[list[Tool]] = None
