@@ -364,7 +364,7 @@ class UserActions:
     """
             return command_list
 
-    def command_match(text_to_process: str, command_getter: CommandGetter) -> str:
+    def command_match(text_to_process: str) -> str:
         """Answer an arbitrary question"""
         command_list="""#custom vscode commands go here
     app: vscode
